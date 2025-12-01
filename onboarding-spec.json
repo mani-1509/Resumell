@@ -1,0 +1,1930 @@
+{
+  "meta": {
+    "projectName": "Resumell",
+    "version": "1.0.0",
+    "platform": "web-responsive",
+    "designSystem": {
+      "colorTokens": {
+        "primary": "#6366F1",
+        "accent": "#8B5CF6",
+        "accentGradient": "linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%)",
+        "background": "#0F0F1A",
+        "surface": "rgba(255, 255, 255, 0.05)",
+        "surfaceHover": "rgba(255, 255, 255, 0.08)",
+        "text": "#FFFFFF",
+        "textSecondary": "#A1A1AA",
+        "success": "#10B981",
+        "error": "#EF4444",
+        "warning": "#F59E0B"
+      },
+      "typography": {
+        "fontFamily": "Inter, system-ui, sans-serif",
+        "weights": [400, 600],
+        "sizes": {
+          "h1": "28px",
+          "h2": "24px",
+          "h3": "20px",
+          "body": "16px",
+          "small": "14px",
+          "tiny": "12px"
+        }
+      },
+      "spacing": {
+        "base": 4,
+        "scale": [4, 8, 12, 16, 20, 24, 32, 40, 48, 64]
+      },
+      "breakpoints": {
+        "mobile": "<=480px",
+        "tablet": "481-1024px",
+        "desktop": ">=1025px"
+      },
+      "animation": {
+        "microDuration": "120-240ms",
+        "transitionDuration": "400-600ms",
+        "easing": "cubic-bezier(0.4, 0.0, 0.2, 1)"
+      }
+    }
+  },
+  "screens": [
+    {
+      "id": "splash",
+      "name": "Splash / Welcome",
+      "route": "/",
+      "purpose": "Brand reveal + instant value proposition",
+      "layout": {
+        "structure": {
+          "header": null,
+          "content": {
+            "verticalAlign": "center",
+            "horizontalAlign": "center",
+            "maxWidth": "560px",
+            "padding": {
+              "mobile": "24px",
+              "tablet": "32px",
+              "desktop": "40px"
+            }
+          },
+          "footer": null
+        },
+        "elements": [
+          {
+            "id": "logo",
+            "type": "AnimatedLogo",
+            "props": {
+              "size": {
+                "mobile": "80px",
+                "tablet": "96px",
+                "desktop": "120px"
+              },
+              "ariaLabel": "Resumell logo"
+            },
+            "spacing": {
+              "marginBottom": "32px"
+            },
+            "animation": {
+              "type": "fade-scale",
+              "duration": "600ms",
+              "delay": "0ms",
+              "keyframes": [
+                { "time": "0%", "opacity": 0, "scale": 0.8 },
+                { "time": "100%", "opacity": 1, "scale": 1 }
+              ]
+            }
+          },
+          {
+            "id": "tagline",
+            "type": "Text",
+            "variant": "h1",
+            "content": "Build. Upgrade. Get hired.",
+            "props": {
+              "textAlign": "center",
+              "color": "text",
+              "ariaLabel": "Tagline: Build. Upgrade. Get hired."
+            },
+            "spacing": {
+              "marginBottom": "16px"
+            },
+            "animation": {
+              "type": "fade-up",
+              "duration": "600ms",
+              "delay": "200ms"
+            }
+          },
+          {
+            "id": "subtitle",
+            "type": "Text",
+            "variant": "body",
+            "content": "Turn messy resumes into job-ready profiles. Get your AI-powered career plan in minutes.",
+            "props": {
+              "textAlign": "center",
+              "color": "textSecondary",
+              "maxWidth": "440px"
+            },
+            "spacing": {
+              "marginBottom": "40px"
+            },
+            "animation": {
+              "type": "fade-up",
+              "duration": "600ms",
+              "delay": "400ms"
+            }
+          },
+          {
+            "id": "cta-primary",
+            "type": "Button",
+            "variant": "primary",
+            "content": "Get Started",
+            "props": {
+              "label": "Get Started",
+              "onClick": "navigateToAuth",
+              "disabled": false,
+              "loading": false,
+              "ariaLabel": "Get started with Resumell",
+              "fullWidth": {
+                "mobile": true,
+                "tablet": false,
+                "desktop": false
+              }
+            },
+            "spacing": {
+              "marginBottom": "12px"
+            },
+            "animation": {
+              "type": "pulse",
+              "duration": "2000ms",
+              "delay": "1200ms",
+              "iterations": "infinite"
+            }
+          },
+          {
+            "id": "cta-secondary",
+            "type": "Button",
+            "variant": "ghost",
+            "content": "Preview",
+            "props": {
+              "label": "Preview",
+              "onClick": "openPreviewModal",
+              "ariaLabel": "Preview Resumell features",
+              "fullWidth": {
+                "mobile": true,
+                "tablet": false,
+                "desktop": false
+              }
+            },
+            "animation": {
+              "type": "fade",
+              "duration": "600ms",
+              "delay": "600ms"
+            }
+          }
+        ]
+      },
+      "states": {
+        "initial": {
+          "description": "First load with animations",
+          "elements": ["logo", "tagline", "subtitle", "cta-primary", "cta-secondary"]
+        },
+        "slowNetwork": {
+          "description": "Show skeleton loader while assets load",
+          "fallback": "SkeletonLoader",
+          "props": {
+            "variant": "splash",
+            "width": "100%",
+            "height": "400px"
+          }
+        },
+        "smallDevice": {
+          "description": "Mobile optimization",
+          "changes": [
+            "Logo size reduces to 80px",
+            "CTA buttons become full-width",
+            "Padding reduces to 24px"
+          ]
+        }
+      },
+      "responsive": {
+        "mobile": {
+          "changes": ["Stack all vertically", "Full-width CTAs", "Reduced spacing"]
+        },
+        "tablet": {
+          "changes": ["Center-aligned", "Medium logo", "Inline CTAs"]
+        },
+        "desktop": {
+          "changes": ["Large logo", "Optimal spacing", "Inline CTAs"]
+        }
+      },
+      "dataFlow": {
+        "onMount": {
+          "action": "Track page view",
+          "telemetry": {
+            "event": "onboarding_started",
+            "properties": {
+              "userId": "null",
+              "source": "direct|referral|campaign"
+            }
+          }
+        },
+        "onCTAClick": {
+          "action": "Navigate to auth",
+          "telemetry": {
+            "event": "splash_cta_clicked",
+            "properties": {
+              "ctaType": "primary|secondary",
+              "timeOnScreen": "ms"
+            }
+          }
+        }
+      },
+      "accessibility": {
+        "requirements": [
+          "Logo has descriptive aria-label",
+          "Keyboard navigation: Tab to CTAs, Enter to activate",
+          "Focus outline visible with 3px solid ring",
+          "Color contrast ratio >= 4.5:1",
+          "Reduced motion respected: no animation if prefers-reduced-motion"
+        ]
+      },
+      "testCases": [
+        {
+          "id": "splash-visual-mobile",
+          "type": "visual",
+          "description": "Verify splash renders correctly on 375px width",
+          "steps": ["Load page on mobile viewport", "Check logo size", "Verify CTA full-width"]
+        },
+        {
+          "id": "splash-animation",
+          "type": "unit",
+          "description": "Animations play in sequence",
+          "assertion": "Logo fades in first, then tagline, subtitle, CTAs"
+        },
+        {
+          "id": "splash-cta-navigation",
+          "type": "integration",
+          "description": "Primary CTA navigates to auth",
+          "assertion": "Click 'Get Started' redirects to /auth"
+        },
+        {
+          "id": "splash-a11y",
+          "type": "accessibility",
+          "description": "axe-core scan passes",
+          "assertion": "No critical or serious violations"
+        }
+      ]
+    },
+    {
+      "id": "auth-choice",
+      "name": "Auth Choice",
+      "route": "/auth",
+      "purpose": "OAuth selection or email signup",
+      "layout": {
+        "structure": {
+          "header": {
+            "type": "SimpleHeader",
+            "props": {
+              "backButton": true,
+              "onBack": "navigateToSplash"
+            },
+            "spacing": {
+              "padding": "16px 24px"
+            }
+          },
+          "content": {
+            "verticalAlign": "center",
+            "horizontalAlign": "center",
+            "maxWidth": "420px",
+            "padding": {
+              "mobile": "24px",
+              "tablet": "32px",
+              "desktop": "40px"
+            }
+          },
+          "footer": null
+        },
+        "elements": [
+          {
+            "id": "heading",
+            "type": "Text",
+            "variant": "h2",
+            "content": "Let's get you started",
+            "spacing": {
+              "marginBottom": "12px"
+            }
+          },
+          {
+            "id": "subheading",
+            "type": "Text",
+            "variant": "body",
+            "content": "Choose how you'd like to continue",
+            "props": {
+              "color": "textSecondary"
+            },
+            "spacing": {
+              "marginBottom": "32px"
+            }
+          },
+          {
+            "id": "oauth-google",
+            "type": "OAuthButton",
+            "provider": "google",
+            "props": {
+              "provider": "google",
+              "onSuccess": "handleOAuthSuccess",
+              "onError": "handleOAuthError",
+              "label": "Continue with Google",
+              "icon": "GoogleIcon"
+            },
+            "spacing": {
+              "marginBottom": "12px"
+            }
+          },
+          {
+            "id": "oauth-linkedin",
+            "type": "OAuthButton",
+            "provider": "linkedin",
+            "props": {
+              "provider": "linkedin",
+              "onSuccess": "handleOAuthSuccess",
+              "onError": "handleOAuthError",
+              "label": "Continue with LinkedIn",
+              "icon": "LinkedInIcon"
+            },
+            "spacing": {
+              "marginBottom": "24px"
+            }
+          },
+          {
+            "id": "divider",
+            "type": "Divider",
+            "content": "or",
+            "spacing": {
+              "marginBottom": "24px"
+            }
+          },
+          {
+            "id": "email-signup",
+            "type": "Button",
+            "variant": "secondary",
+            "content": "Sign up with Email",
+            "props": {
+              "label": "Sign up with Email",
+              "onClick": "navigateToEmailSignup",
+              "ariaLabel": "Sign up with email address",
+              "fullWidth": true
+            },
+            "spacing": {
+              "marginBottom": "16px"
+            }
+          },
+          {
+            "id": "signin-link",
+            "type": "TextLink",
+            "content": "Already have an account? Sign in",
+            "props": {
+              "onClick": "navigateToSignIn",
+              "ariaLabel": "Sign in to existing account"
+            },
+            "spacing": {
+              "marginBottom": "24px"
+            }
+          },
+          {
+            "id": "privacy-note",
+            "type": "Text",
+            "variant": "small",
+            "content": "We never store passwords — OAuth only",
+            "props": {
+              "color": "textSecondary",
+              "textAlign": "center",
+              "icon": "ShieldIcon"
+            }
+          }
+        ]
+      },
+      "states": {
+        "initial": {
+          "description": "Default state with all options",
+          "loading": false,
+          "error": null
+        },
+        "oauthLoading": {
+          "description": "OAuth popup opened, show loading spinner",
+          "loading": true,
+          "disabledButtons": ["oauth-google", "oauth-linkedin", "email-signup"]
+        },
+        "oauthError": {
+          "description": "OAuth failed or denied",
+          "error": {
+            "type": "InlineError",
+            "message": "Authentication failed. Please try again or use email signup.",
+            "variant": "error"
+          }
+        },
+        "networkError": {
+          "description": "Network unavailable",
+          "error": {
+            "type": "Toast",
+            "message": "Network error. Check your connection and try again.",
+            "variant": "error",
+            "duration": 5000
+          }
+        }
+      },
+      "responsive": {
+        "mobile": {
+          "changes": ["Full-width buttons", "Reduced padding"]
+        },
+        "tablet": {
+          "changes": ["Max width 420px", "Standard padding"]
+        },
+        "desktop": {
+          "changes": ["Max width 420px", "Optimal padding"]
+        }
+      },
+      "dataFlow": {
+        "onOAuthSuccess": {
+          "action": "Store token and navigate to preferences",
+          "payload": {
+            "accessToken": "string",
+            "provider": "google|linkedin",
+            "userEmail": "string",
+            "userName": "string"
+          },
+          "telemetry": {
+            "event": "oauth_attempt",
+            "properties": {
+              "provider": "google|linkedin",
+              "result": "success"
+            }
+          },
+          "nextRoute": "/onboarding/preferences"
+        },
+        "onOAuthError": {
+          "action": "Show error and allow retry",
+          "telemetry": {
+            "event": "oauth_attempt",
+            "properties": {
+              "provider": "google|linkedin",
+              "result": "failure",
+              "errorCode": "string"
+            }
+          }
+        }
+      },
+      "accessibility": {
+        "requirements": [
+          "All buttons keyboard accessible via Tab",
+          "OAuth buttons have descriptive aria-labels",
+          "Error messages announced via aria-live region",
+          "Focus trapped in modal during OAuth",
+          "Privacy note has sufficient contrast"
+        ]
+      },
+      "testCases": [
+        {
+          "id": "auth-oauth-success",
+          "type": "integration",
+          "description": "Successful Google OAuth navigates to preferences",
+          "mock": "Mock OAuth success response",
+          "assertion": "Redirect to /onboarding/preferences with token"
+        },
+        {
+          "id": "auth-oauth-failure",
+          "type": "integration",
+          "description": "Failed OAuth shows error message",
+          "mock": "Mock OAuth error",
+          "assertion": "InlineError displays with retry option"
+        },
+        {
+          "id": "auth-keyboard-nav",
+          "type": "accessibility",
+          "description": "Tab order is logical",
+          "assertion": "Tab through: Google → LinkedIn → Email → Sign in link"
+        },
+        {
+          "id": "auth-a11y",
+          "type": "accessibility",
+          "description": "axe-core scan passes",
+          "assertion": "No critical violations"
+        }
+      ]
+    },
+    {
+      "id": "quick-preferences",
+      "name": "Quick Preferences (3-step wizard)",
+      "route": "/onboarding/preferences",
+      "purpose": "Gather user goals, role, and resume source",
+      "layout": {
+        "structure": {
+          "header": {
+            "type": "WizardHeader",
+            "props": {
+              "currentStep": "dynamic",
+              "totalSteps": 3,
+              "backButton": true,
+              "onBack": "previousStep"
+            }
+          },
+          "content": {
+            "maxWidth": "640px",
+            "padding": {
+              "mobile": "24px",
+              "tablet": "32px",
+              "desktop": "40px"
+            }
+          },
+          "footer": {
+            "type": "WizardFooter",
+            "props": {
+              "primaryCTA": "Continue",
+              "secondaryCTA": "Skip",
+              "showProgress": true
+            }
+          }
+        },
+        "steps": [
+          {
+            "id": "step-a",
+            "stepNumber": 1,
+            "name": "What brings you here?",
+            "elements": [
+              {
+                "id": "heading",
+                "type": "Text",
+                "variant": "h2",
+                "content": "What brings you here?",
+                "spacing": {
+                  "marginBottom": "12px"
+                }
+              },
+              {
+                "id": "hint",
+                "type": "Text",
+                "variant": "small",
+                "content": "Pick what you want right now — you can change later.",
+                "props": {
+                  "color": "textSecondary"
+                },
+                "spacing": {
+                  "marginBottom": "24px"
+                }
+              },
+              {
+                "id": "goals-selector",
+                "type": "ChipSelector",
+                "props": {
+                  "options": [
+                    {
+                      "id": "build_resume",
+                      "label": "Build new resume",
+                      "icon": "DocumentAddIcon"
+                    },
+                    {
+                      "id": "improve_resume",
+                      "label": "Improve existing resume",
+                      "icon": "SparklesIcon"
+                    },
+                    {
+                      "id": "career_guidance",
+                      "label": "Career guidance",
+                      "icon": "CompassIcon"
+                    },
+                    {
+                      "id": "interview_prep",
+                      "label": "Interview prep",
+                      "icon": "ChatBubbleIcon"
+                    }
+                  ],
+                  "selected": [],
+                  "multi": true,
+                  "onChange": "handleGoalsChange",
+                  "minSelection": 1,
+                  "maxSelection": 4
+                }
+              }
+            ],
+            "validation": {
+              "required": true,
+              "minSelections": 1,
+              "errorMessage": "Select at least one goal to continue"
+            }
+          },
+          {
+            "id": "step-b",
+            "stepNumber": 2,
+            "name": "Role & Experience",
+            "elements": [
+              {
+                "id": "heading",
+                "type": "Text",
+                "variant": "h2",
+                "content": "Tell us about your goals",
+                "spacing": {
+                  "marginBottom": "24px"
+                }
+              },
+              {
+                "id": "desired-role",
+                "type": "TypeaheadInput",
+                "props": {
+                  "label": "Desired Role",
+                  "placeholder": "e.g., Frontend Engineer, Product Designer",
+                  "suggestions": [
+                    {
+                      "id": "frontend-engineer",
+                      "label": "Frontend Engineer",
+                      "icon": "CodeIcon",
+                      "description": "Build user interfaces with React, Vue, or Angular"
+                    },
+                    {
+                      "id": "product-designer",
+                      "label": "Product Designer",
+                      "icon": "PaletteIcon",
+                      "description": "Design user experiences and interfaces"
+                    },
+                    {
+                      "id": "data-analyst",
+                      "label": "Data Analyst",
+                      "icon": "ChartIcon",
+                      "description": "Analyze data and create insights"
+                    },
+                    {
+                      "id": "product-manager",
+                      "label": "Product Manager",
+                      "icon": "BriefcaseIcon",
+                      "description": "Lead product strategy and development"
+                    }
+                  ],
+                  "onSelect": "handleRoleSelect",
+                  "debounceMs": 300,
+                  "ariaLabel": "Search for desired role"
+                },
+                "spacing": {
+                  "marginBottom": "20px"
+                }
+              },
+              {
+                "id": "target-company",
+                "type": "Input",
+                "props": {
+                  "label": "Target Company (optional)",
+                  "placeholder": "e.g., Google, Microsoft",
+                  "onChange": "handleCompanyChange",
+                  "ariaLabel": "Enter target company name"
+                },
+                "spacing": {
+                  "marginBottom": "24px"
+                }
+              },
+              {
+                "id": "experience-level",
+                "type": "RadioGroup",
+                "props": {
+                  "label": "Experience Level",
+                  "options": [
+                    {
+                      "id": "student",
+                      "label": "Student / No experience",
+                      "value": "student"
+                    },
+                    {
+                      "id": "0-1",
+                      "label": "0-1 years",
+                      "value": "0-1"
+                    },
+                    {
+                      "id": "1-3",
+                      "label": "1-3 years",
+                      "value": "1-3"
+                    },
+                    {
+                      "id": "3-7",
+                      "label": "3-7 years",
+                      "value": "3-7"
+                    },
+                    {
+                      "id": "7+",
+                      "label": "7+ years",
+                      "value": "7+"
+                    }
+                  ],
+                  "onChange": "handleExperienceChange",
+                  "ariaLabel": "Select experience level"
+                }
+              }
+            ],
+            "validation": {
+              "required": ["desired-role", "experience-level"],
+              "errorMessages": {
+                "desired-role": "Please select or enter your desired role",
+                "experience-level": "Please select your experience level"
+              }
+            }
+          },
+          {
+            "id": "step-c",
+            "stepNumber": 3,
+            "name": "Resume Source",
+            "elements": [
+              {
+                "id": "heading",
+                "type": "Text",
+                "variant": "h2",
+                "content": "How would you like to start?",
+                "spacing": {
+                  "marginBottom": "24px"
+                }
+              },
+              {
+                "id": "resume-source-cards",
+                "type": "CardSelector",
+                "props": {
+                  "options": [
+                    {
+                      "id": "upload",
+                      "icon": "UploadIcon",
+                      "title": "Upload resume",
+                      "description": "PDF or DOCX. We'll parse it for you.",
+                      "action": "openFileUpload"
+                    },
+                    {
+                      "id": "linkedin",
+                      "icon": "LinkedInIcon",
+                      "title": "Import from LinkedIn",
+                      "description": "Automatically pull your profile data",
+                      "action": "initiateLinkedInImport"
+                    },
+                    {
+                      "id": "scratch",
+                      "icon": "DocumentIcon",
+                      "title": "Start from scratch",
+                      "description": "Build your resume step by step",
+                      "action": "startFromScratch"
+                    }
+                  ],
+                  "selected": null,
+                  "onChange": "handleResumeSourceChange"
+                }
+              },
+              {
+                "id": "file-uploader",
+                "type": "FileUploader",
+                "props": {
+                  "accept": ".pdf,.docx",
+                  "maxSize": 10485760,
+                  "onUpload": "handleFileUpload",
+                  "onParseError": "handleParseError",
+                  "visible": "when resume-source-cards.selected === 'upload'"
+                },
+                "spacing": {
+                  "marginTop": "24px"
+                }
+              },
+              {
+                "id": "upload-hint",
+                "type": "Text",
+                "variant": "small",
+                "content": "Max file size: 10MB",
+                "props": {
+                  "color": "textSecondary",
+                  "visible": "when file-uploader is visible"
+                },
+                "spacing": {
+                  "marginTop": "8px"
+                }
+              }
+            ],
+            "validation": {
+              "required": true,
+              "customValidation": "Ensure resume source selected or file uploaded",
+              "errorMessage": "Please choose how you'd like to start"
+            }
+          }
+        ]
+      },
+      "states": {
+        "step1": {
+          "description": "Goals selection",
+          "currentStep": 1,
+          "canProceed": "selected.length >= 1"
+        },
+        "step2": {
+          "description": "Role and experience",
+          "currentStep": 2,
+          "canProceed": "desiredRole && experienceLevel"
+        },
+        "step3": {
+          "description": "Resume source",
+          "currentStep": 3,
+          "canProceed": "resumeSource selected"
+        },
+        "fileUploading": {
+          "description": "File being uploaded and parsed",
+          "loading": true,
+          "progressBar": "0-100%"
+        },
+        "parseError": {
+          "description": "Resume parse failed",
+          "error": {
+            "type": "InlineError",
+            "message": "We couldn't parse your resume. Try a different format or start from scratch.",
+            "actions": ["Retry", "Manual entry"]
+          }
+        }
+      },
+      "responsive": {
+        "mobile": {
+          "changes": ["Single column layout", "Full-width cards", "Compact chip spacing"]
+        },
+        "tablet": {
+          "changes": ["Two-column card grid", "Increased spacing"]
+        },
+        "desktop": {
+          "changes": ["Three-column card grid for step C", "Optimal spacing"]
+        }
+      },
+      "dataFlow": {
+        "onStepComplete": {
+          "action": "Save progress and advance",
+          "telemetry": {
+            "event": "onboarding_step_completed",
+            "properties": {
+              "stepName": "preferences_step_a|b|c",
+              "durationMs": "number",
+              "selections": "object"
+            }
+          }
+        },
+        "onWizardComplete": {
+          "action": "Submit all preferences",
+          "endpoint": "POST /api/onboarding/preferences",
+          "payload": {
+            "sessionId": "string",
+            "goals": ["string"],
+            "desiredRole": "string",
+            "targetCompany": "string | null",
+            "experienceLevel": "student|0-1|1-3|3-7|7+",
+            "resumeSource": "upload|linkedin|scratch"
+          },
+          "response": {
+            "preferencesId": "uuid",
+            "nextStep": "profile|walkthrough"
+          },
+          "telemetry": {
+            "event": "preferences_completed",
+            "properties": {
+              "totalDurationMs": "number",
+              "goals": "array",
+              "resumeSource": "string"
+            }
+          }
+        },
+        "onFileUpload": {
+          "action": "Upload file and parse",
+          "endpoint": "POST /api/resume/upload",
+          "headers": {
+            "Content-Type": "multipart/form-data"
+          },
+          "response": {
+            "fileId": "uuid",
+            "parseSuccess": "boolean",
+            "parsedData": "object | null",
+            "jobId": "string (for async parsing)"
+          },
+          "telemetry": {
+            "event": "resume_uploaded",
+            "properties": {
+              "fileSize": "number",
+              "parseSuccess": "boolean"
+            }
+          }
+        }
+      },
+      "accessibility": {
+        "requirements": [
+          "Wizard progress announced via aria-live",
+          "Chip selector navigable via arrow keys",
+          "File uploader drag-drop has keyboard alternative",
+          "Form validation errors announced immediately",
+          "Back button clearly labeled"
+        ]
+      },
+      "testCases": [
+        {
+          "id": "prefs-step-navigation",
+          "type": "integration",
+          "description": "User can navigate through all 3 steps",
+          "steps": [
+            "Select goals on step A",
+            "Click Continue",
+            "Fill role and experience on step B",
+            "Click Continue",
+            "Select resume source on step C",
+            "Click Continue"
+          ],
+          "assertion": "Navigate to next screen with saved data"
+        },
+        {
+          "id": "prefs-file-upload",
+          "type": "integration",
+          "description": "File upload validates size and format",
+          "mock": "Mock file upload endpoint",
+          "assertion": "10MB+ file shows error, valid file proceeds"
+        },
+        {
+          "id": "prefs-validation",
+          "type": "unit",
+          "description": "Step validation prevents proceeding with incomplete data",
+          "assertion": "Continue button disabled when required fields empty"
+        },
+        {
+          "id": "prefs-a11y",
+          "type": "accessibility",
+          "description": "Wizard is keyboard accessible",
+          "assertion": "Can complete entire flow via keyboard only"
+        }
+      ]
+    },
+    {
+      "id": "quick-profile",
+      "name": "Quick Profile",
+      "route": "/onboarding/profile",
+      "purpose": "Capture basic profile info with skip option",
+      "layout": {
+        "structure": {
+          "header": {
+            "type": "SimpleHeader",
+            "props": {
+              "backButton": true,
+              "onBack": "previousScreen"
+            }
+          },
+          "content": {
+            "maxWidth": "560px",
+            "padding": {
+              "mobile": "24px",
+              "tablet": "32px",
+              "desktop": "40px"
+            }
+          },
+          "footer": null
+        },
+        "elements": [
+          {
+            "id": "heading",
+            "type": "Text",
+            "variant": "h2",
+            "content": "Complete your profile",
+            "spacing": {
+              "marginBottom": "12px"
+            }
+          },
+          {
+            "id": "subheading",
+            "type": "Text",
+            "variant": "body",
+            "content": "Help us personalize your experience. You can update this anytime.",
+            "props": {
+              "color": "textSecondary"
+            },
+            "spacing": {
+              "marginBottom": "32px"
+            }
+          },
+          {
+            "id": "name-input",
+            "type": "Input",
+            "props": {
+              "label": "Full Name",
+              "placeholder": "John Doe",
+              "value": "prefilled from OAuth if available",
+              "onChange": "handleNameChange",
+              "required": true,
+              "ariaLabel": "Enter your full name"
+            },
+            "spacing": {
+              "marginBottom": "20px"
+            }
+          },
+          {
+            "id": "email-input",
+            "type": "Input",
+            "props": {
+              "label": "Email",
+              "placeholder": "john@example.com",
+              "value": "prefilled from OAuth if available",
+              "onChange": "handleEmailChange",
+              "type": "email",
+              "required": true,
+              "disabled": "if prefilled from OAuth",
+              "ariaLabel": "Your email address"
+            },
+            "spacing": {
+              "marginBottom": "20px"
+            }
+          },
+          {
+            "id": "location-input",
+            "type": "Input",
+            "props": {
+              "label": "Location (optional)",
+              "placeholder": "San Francisco, CA",
+              "onChange": "handleLocationChange",
+              "ariaLabel": "Enter your location"
+            },
+            "spacing": {
+              "marginBottom": "20px"
+            }
+          },
+          {
+            "id": "skills-input",
+            "type": "TagInput",
+            "props": {
+              "label": "Top 3 Skills",
+              "placeholder": "Type and press Enter",
+              "suggestions": "auto-suggested based on desiredRole from preferences",
+              "maxTags": 3,
+              "onChange": "handleSkillsChange",
+              "ariaLabel": "Add your top skills"
+            },
+            "spacing": {
+              "marginBottom": "24px"
+            }
+          },
+          {
+            "id": "privacy-toggle",
+            "type": "Toggle",
+            "props": {
+              "label": "Make profile public",
+              "description": "Allow recruiters to find your profile",
+              "checked": false,
+              "onChange": "handlePrivacyToggle",
+              "ariaLabel": "Toggle profile visibility"
+            },
+            "spacing": {
+              "marginBottom": "32px"
+            }
+          },
+          {
+            "id": "cta-save",
+            "type": "Button",
+            "variant": "primary",
+            "content": "Save & Continue",
+            "props": {
+              "label": "Save & Continue",
+              "onClick": "handleProfileSave",
+              "loading": false,
+              "fullWidth": true,
+              "ariaLabel": "Save profile and continue"
+            },
+            "spacing": {
+              "marginBottom": "12px"
+            }
+          },
+          {
+            "id": "cta-skip",
+            "type": "TextLink",
+            "content": "Skip for now",
+            "props": {
+              "onClick": "handleSkip",
+              "ariaLabel": "Skip profile setup",
+              "textAlign": "center"
+            }
+          },
+          {
+            "id": "skip-hint",
+            "type": "Text",
+            "variant": "small",
+            "content": "Too busy? Skip and finish later — we'll save your progress.",
+            "props": {
+              "color": "textSecondary",
+              "textAlign": "center"
+            },
+            "spacing": {
+              "marginTop": "8px"
+            }
+          }
+        ]
+      },
+      "states": {
+        "initial": {
+          "description": "Form with prefilled OAuth data",
+          "prefilled": ["name", "email"],
+          "loading": false
+        },
+        "saving": {
+          "description": "Profile being saved",
+          "loading": true,
+          "disabledInputs": true
+        },
+        "validationError": {
+          "description": "Required fields missing",
+          "errors": {
+            "name": "Name is required",
+            "email": "Valid email is required"
+          }
+        },
+        "skillsSuggestions": {
+          "description": "Show role-based skill suggestions",
+          "suggestions": "Based on desiredRole from previous step"
+        }
+      },
+      "responsive": {
+        "mobile": {
+          "changes": ["Full-width inputs", "Stack all vertically"]
+        },
+        "tablet": {
+          "changes": ["Max width 560px", "Standard spacing"]
+        },
+        "desktop": {
+          "changes": ["Max width 560px", "Optimal spacing"]
+        }
+      },
+      "dataFlow": {
+        "onMount": {
+          "action": "Prefill from OAuth or previous data",
+          "source": "OAuth profile or localStorage"
+        },
+        "onSave": {
+          "action": "Submit profile data",
+          "endpoint": "POST /api/onboarding/profile",
+          "payload": {
+            "userId": "string",
+            "name": "string",
+            "email": "string",
+            "location": "string | null",
+            "skills": ["string"],
+            "isPublic": "boolean"
+          },
+          "response": {
+            "profileId": "uuid",
+            "nextStep": "walkthrough"
+          },
+          "telemetry": {
+            "event": "profile_completed",
+            "properties": {
+              "hasLocation": "boolean",
+              "skillsCount": "number",
+              "isPublic": "boolean"
+            }
+          },
+          "nextRoute": "/onboarding/walkthrough"
+        },
+        "onSkip": {
+          "action": "Skip profile setup",
+          "telemetry": {
+            "event": "profile_skipped",
+            "properties": {
+              "timestamp": "ISO string"
+            }
+          },
+          "nextRoute": "/onboarding/walkthrough"
+        }
+      },
+      "accessibility": {
+        "requirements": [
+          "All inputs have visible labels",
+          "Email validation provides clear error messages",
+          "Toggle has descriptive aria-label",
+          "Skip link is keyboard accessible",
+          "Form errors announced via aria-live"
+        ]
+      },
+      "testCases": [
+        {
+          "id": "profile-prefill",
+          "type": "unit",
+          "description": "OAuth data prefills name and email",
+          "mock": "Mock OAuth data",
+          "assertion": "Name and email inputs prefilled and email disabled"
+        },
+        {
+          "id": "profile-skill-suggestions",
+          "type": "integration",
+          "description": "Skills suggested based on desired role",
+          "mock": "desiredRole = 'Frontend Engineer'",
+          "assertion": "Suggestions include React, JavaScript, TypeScript"
+        },
+        {
+          "id": "profile-validation",
+          "type": "unit",
+          "description": "Form validates required fields",
+          "assertion": "Cannot submit with empty name or invalid email"
+        },
+        {
+          "id": "profile-skip",
+          "type": "integration",
+          "description": "Skip navigates to next step",
+          "assertion": "Click skip → redirect to /onboarding/walkthrough"
+        },
+        {
+          "id": "profile-a11y",
+          "type": "accessibility",
+          "description": "Form is accessible",
+          "assertion": "All inputs keyboard navigable, errors announced"
+        }
+      ]
+    },
+    {
+      "id": "walkthrough",
+      "name": "Walkthrough / First-Run Checklist",
+      "route": "/onboarding/walkthrough",
+      "purpose": "Show key actions to complete activation",
+      "layout": {
+        "structure": {
+          "header": {
+            "type": "SimpleHeader",
+            "props": {
+              "title": "Let's get you set up",
+              "showClose": true,
+              "onClose": "navigateToDashboard"
+            }
+          },
+          "content": {
+            "maxWidth": "720px",
+            "padding": {
+              "mobile": "24px",
+              "tablet": "32px",
+              "desktop": "40px"
+            }
+          },
+          "footer": null
+        },
+        "elements": [
+          {
+            "id": "intro-text",
+            "type": "Text",
+            "variant": "body",
+            "content": "Do the first two to get a personalized 30-day plan.",
+            "props": {
+              "color": "textSecondary",
+              "textAlign": "center"
+            },
+            "spacing": {
+              "marginBottom": "32px"
+            }
+          },
+          {
+            "id": "progress-bar",
+            "type": "ProgressBar",
+            "props": {
+              "current": 0,
+              "total": 3,
+              "showLabel": true,
+              "ariaLabel": "Onboarding progress: 0 of 3 tasks completed"
+            },
+            "spacing": {
+              "marginBottom": "32px"
+            }
+          },
+          {
+            "id": "checklist-cards",
+            "type": "ChecklistCards",
+            "props": {
+              "cards": [
+                {
+                  "id": "upload-resume",
+                  "icon": "DocumentIcon",
+                  "title": "Upload resume",
+                  "description": "Add your current resume so we can analyze it",
+                  "completed": false,
+                  "action": {
+                    "label": "Upload now",
+                    "onClick": "openFileUpload"
+                  },
+                  "badge": "Required"
+                },
+                {
+                  "id": "run-analysis",
+                  "icon": "SparklesIcon",
+                  "title": "Run AI analysis",
+                  "description": "Get instant feedback on your resume",
+                  "completed": false,
+                  "action": {
+                    "label": "Analyze",
+                    "onClick": "runAnalysis",
+                    "disabled": "until upload-resume completed"
+                  },
+                  "badge": "Required"
+                },
+                {
+                  "id": "create-plan",
+                  "icon": "MapIcon",
+                  "title": "Create career plan",
+                  "description": "Get a 30-day roadmap tailored to your goal",
+                  "completed": false,
+                  "action": {
+                    "label": "Create plan",
+                    "onClick": "createCareerPlan"
+                  },
+                  "badge": "Optional"
+                }
+              ],
+              "onChange": "handleChecklistChange"
+            }
+          },
+          {
+            "id": "cta-later",
+            "type": "TextLink",
+            "content": "Do this later",
+            "props": {
+              "onClick": "navigateToDashboard",
+              "ariaLabel": "Skip walkthrough and go to dashboard",
+              "textAlign": "center"
+            },
+            "spacing": {
+              "marginTop": "32px"
+            }
+          }
+        ]
+      },
+      "states": {
+        "initial": {
+          "description": "No tasks completed",
+          "progress": 0,
+          "completedCards": []
+        },
+        "resumeUploaded": {
+          "description": "Resume uploaded, analysis enabled",
+          "progress": 1,
+          "completedCards": ["upload-resume"],
+          "enabledActions": ["run-analysis"]
+        },
+        "analysisComplete": {
+          "description": "Analysis done, plan enabled",
+          "progress": 2,
+          "completedCards": ["upload-resume", "run-analysis"],
+          "enabledActions": ["create-plan"]
+        },
+        "allComplete": {
+          "description": "All tasks done",
+          "progress": 3,
+          "completedCards": ["upload-resume", "run-analysis", "create-plan"],
+          "showConfetti": true,
+          "autoRedirect": "after 2s to dashboard"
+        }
+      },
+      "responsive": {
+        "mobile": {
+          "changes": ["Single column cards", "Compact spacing"]
+        },
+        "tablet": {
+          "changes": ["Single column cards", "Standard spacing"]
+        },
+        "desktop": {
+          "changes": ["Three-column card grid or single column with larger cards"]
+        }
+      },
+      "dataFlow": {
+        "onTaskComplete": {
+          "action": "Update progress and enable next task",
+          "telemetry": {
+            "event": "walkthrough_task_completed",
+            "properties": {
+              "taskId": "upload-resume|run-analysis|create-plan",
+              "completionOrder": "number"
+            }
+          }
+        },
+        "onAllComplete": {
+          "action": "Mark onboarding complete and redirect",
+          "endpoint": "POST /api/onboarding/complete",
+          "payload": {
+            "userId": "string",
+            "completedTasks": ["string"],
+            "completionTime": "ISO string"
+          },
+          "response": {
+            "onboardingId": "uuid",
+            "welcomeMessage": "string"
+          },
+          "telemetry": {
+            "event": "onboarding_completed",
+            "properties": {
+              "timeTakenMs": "number",
+              "choices": {
+                "role": "string",
+                "resumeSource": "string"
+              }
+            }
+          },
+          "nextRoute": "/dashboard"
+        },
+        "onSkip": {
+          "action": "Navigate to dashboard without completing",
+          "telemetry": {
+            "event": "walkthrough_skipped",
+            "properties": {
+              "completedTasks": "number"
+            }
+          },
+          "nextRoute": "/dashboard"
+        }
+      },
+      "accessibility": {
+        "requirements": [
+          "Progress bar has descriptive aria-label",
+          "Checklist cards keyboard navigable",
+          "Disabled actions clearly indicated",
+          "Completion state announced via aria-live",
+          "Skip link always accessible"
+        ]
+      },
+      "testCases": [
+        {
+          "id": "walkthrough-task-progression",
+          "type": "integration",
+          "description": "Tasks enable sequentially",
+          "steps": [
+            "Initial: only upload enabled",
+            "Upload resume → analysis enabled",
+            "Run analysis → plan enabled"
+          ],
+          "assertion": "Tasks enable in correct order"
+        },
+        {
+          "id": "walkthrough-completion",
+          "type": "integration",
+          "description": "All tasks complete triggers redirect",
+          "mock": "Complete all 3 tasks",
+          "assertion": "Confetti shows, redirect to dashboard after 2s"
+        },
+        {
+          "id": "walkthrough-skip",
+          "type": "integration",
+          "description": "Skip navigates to dashboard",
+          "assertion": "Click 'Do this later' → redirect to /dashboard"
+        },
+        {
+          "id": "walkthrough-a11y",
+          "type": "accessibility",
+          "description": "Progress announced",
+          "assertion": "Screen reader announces task completion"
+        }
+      ]
+    },
+    {
+      "id": "completion",
+      "name": "Completion / Dashboard Redirect",
+      "route": "/onboarding/complete",
+      "purpose": "Celebrate completion and provide quick tip",
+      "layout": {
+        "structure": {
+          "header": null,
+          "content": {
+            "type": "Modal",
+            "maxWidth": "480px",
+            "centered": true,
+            "overlay": true
+          },
+          "footer": null
+        },
+        "elements": [
+          {
+            "id": "celebration-icon",
+            "type": "Icon",
+            "icon": "CheckCircleIcon",
+            "props": {
+              "size": "64px",
+              "color": "success",
+              "ariaLabel": "Success"
+            },
+            "spacing": {
+              "marginBottom": "24px"
+            },
+            "animation": {
+              "type": "scale-bounce",
+              "duration": "600ms"
+            }
+          },
+          {
+            "id": "heading",
+            "type": "Text",
+            "variant": "h2",
+            "content": "You're all set!",
+            "props": {
+              "textAlign": "center"
+            },
+            "spacing": {
+              "marginBottom": "16px"
+            }
+          },
+          {
+            "id": "tip-card",
+            "type": "Card",
+            "props": {
+              "variant": "tip",
+              "icon": "LightbulbIcon",
+              "title": "Pro tip",
+              "content": "Add metrics to work bullets for +10 points. Example: 'Increased sales by 25%' beats 'Improved sales.'"
+            },
+            "spacing": {
+              "marginBottom": "32px"
+            }
+          },
+          {
+            "id": "cta-dashboard",
+            "type": "Button",
+            "variant": "primary",
+            "content": "Go to Dashboard",
+            "props": {
+              "label": "Go to Dashboard",
+              "onClick": "navigateToDashboard",
+              "fullWidth": true,
+              "ariaLabel": "Go to your dashboard"
+            },
+            "spacing": {
+              "marginBottom": "12px"
+            }
+          },
+          {
+            "id": "cta-analysis",
+            "type": "Button",
+            "variant": "secondary",
+            "content": "Run first analysis",
+            "props": {
+              "label": "Run first analysis",
+              "onClick": "runFirstAnalysis",
+              "fullWidth": true,
+              "ariaLabel": "Run your first AI analysis"
+            }
+          }
+        ]
+      },
+      "states": {
+        "initial": {
+          "description": "Modal visible with celebration",
+          "visible": true,
+          "confetti": true
+        },
+        "autoClose": {
+          "description": "Auto-redirect after 10s if no interaction",
+          "timeout": 10000,
+          "action": "navigateToDashboard"
+        }
+      },
+      "responsive": {
+        "mobile": {
+          "changes": ["Modal takes 90% width", "Full-width buttons"]
+        },
+        "tablet": {
+          "changes": ["Modal max 480px", "Standard spacing"]
+        },
+        "desktop": {
+          "changes": ["Modal max 480px", "Centered"]
+        }
+      },
+      "dataFlow": {
+        "onMount": {
+          "action": "Show completion modal",
+          "telemetry": {
+            "event": "completion_modal_shown",
+            "properties": {
+              "timestamp": "ISO string"
+            }
+          }
+        },
+        "onDashboardClick": {
+          "action": "Navigate to dashboard",
+          "telemetry": {
+            "event": "completion_cta_clicked",
+            "properties": {
+              "ctaType": "dashboard"
+            }
+          },
+          "nextRoute": "/dashboard"
+        },
+        "onAnalysisClick": {
+          "action": "Navigate to analysis",
+          "telemetry": {
+            "event": "completion_cta_clicked",
+            "properties": {
+              "ctaType": "analysis"
+            }
+          },
+          "nextRoute": "/resume/analyze"
+        }
+      },
+      "accessibility": {
+        "requirements": [
+          "Modal has role='dialog' and aria-labelledby",
+          "Focus trapped inside modal",
+          "Escape key closes modal and navigates to dashboard",
+          "Celebration icon has aria-label",
+          "Auto-redirect announced via aria-live"
+        ]
+      },
+      "testCases": [
+        {
+          "id": "completion-modal-display",
+          "type": "visual",
+          "description": "Modal displays correctly on all breakpoints",
+          "assertion": "Modal centered, confetti visible, CTAs accessible"
+        },
+        {
+          "id": "completion-auto-redirect",
+          "type": "integration",
+          "description": "Auto-redirect after 10s",
+          "assertion": "No interaction → redirect to /dashboard after 10s"
+        },
+        {
+          "id": "completion-cta-navigation",
+          "type": "integration",
+          "description": "CTAs navigate correctly",
+          "assertion": "Dashboard CTA → /dashboard, Analysis CTA → /resume/analyze"
+        },
+        {
+          "id": "completion-a11y",
+          "type": "accessibility",
+          "description": "Modal is accessible",
+          "assertion": "Focus trapped, Escape closes, aria-live announces redirect"
+        }
+      ]
+    }
+  ],
+  "sharedComponents": [
+    {
+      "name": "Button",
+      "file": "Button.tsx",
+      "props": {
+        "label": "string (required)",
+        "onClick": "() => void (required)",
+        "variant": "'primary' | 'secondary' | 'ghost'",
+        "disabled": "boolean",
+        "loading": "boolean",
+        "fullWidth": "boolean",
+        "ariaLabel": "string"
+      },
+      "states": ["default", "hover", "active", "disabled", "loading"]
+    },
+    {
+      "name": "OAuthButton",
+      "file": "OAuthButton.tsx",
+      "props": {
+        "provider": "'google' | 'linkedin' (required)",
+        "onSuccess": "(token: string) => void (required)",
+        "onError": "(error: Error) => void (required)",
+        "label": "string",
+        "icon": "ReactNode"
+      },
+      "states": ["default", "loading", "error"]
+    },
+    {
+      "name": "ChipSelector",
+      "file": "ChipSelector.tsx",
+      "props": {
+        "options": "Array<{id: string, label: string, icon?: ReactNode}> (required)",
+        "selected": "string[] (required)",
+        "multi": "boolean",
+        "onChange": "(selected: string[]) => void (required)",
+        "minSelection": "number",
+        "maxSelection": "number"
+      },
+      "states": ["default", "selected", "disabled"]
+    },
+    {
+      "name": "TypeaheadInput",
+      "file": "TypeaheadInput.tsx",
+      "props": {
+        "suggestions": "Array<{id: string, label: string, icon?: ReactNode, description?: string}> (required)",
+        "onSelect": "(item: any) => void (required)",
+        "placeholder": "string",
+        "debounceMs": "number",
+        "ariaLabel": "string"
+      },
+      "states": ["default", "focused", "suggestionsOpen"]
+    },
+    {
+      "name": "FileUploader",
+      "file": "FileUploader.tsx",
+      "props": {
+        "accept": "string (required)",
+        "maxSize": "number (bytes) (required)",
+        "onUpload": "(file: File) => void (required)",
+        "onParseError": "(error: Error) => void (required)"
+      },
+      "states": ["idle", "dragOver", "uploading", "success", "error"]
+    },
+    {
+      "name": "FormWizard",
+      "file": "FormWizard.tsx",
+      "props": {
+        "steps": "Array<{id: string, name: string, component: ReactNode}> (required)",
+        "initialStep": "number",
+        "onComplete": "(data: any) => void (required)"
+      },
+      "states": ["stepN", "validating", "submitting"]
+    },
+    {
+      "name": "ProgressCard",
+      "file": "ProgressCard.tsx",
+      "props": {
+        "title": "string (required)",
+        "description": "string",
+        "percent": "number",
+        "actions": "Array<{label: string, onClick: () => void}>"
+      },
+      "states": ["incomplete", "inProgress", "complete"]
+    },
+    {
+      "name": "Toast",
+      "file": "Toast.tsx",
+      "props": {
+        "type": "'success' | 'error' | 'warning' | 'info' (required)",
+        "message": "string (required)",
+        "duration": "number (ms)"
+      },
+      "states": ["visible", "hiding"]
+    },
+    {
+      "name": "InlineError",
+      "file": "InlineError.tsx",
+      "props": {
+        "message": "string (required)",
+        "variant": "'error' | 'warning'",
+        "actions": "Array<{label: string, onClick: () => void}>"
+      },
+      "states": ["visible"]
+    },
+    {
+      "name": "SkeletonLoader",
+      "file": "SkeletonLoader.tsx",
+      "props": {
+        "variant": "'splash' | 'card' | 'text' (required)",
+        "width": "string",
+        "height": "string"
+      },
+      "states": ["animating"]
+    },
+    {
+      "name": "Modal",
+      "file": "Modal.tsx",
+      "props": {
+        "title": "string",
+        "content": "ReactNode (required)",
+        "actions": "Array<{label: string, onClick: () => void}>",
+        "onClose": "() => void"
+      },
+      "states": ["open", "closing"]
+    }
+  ],
+  "telemetryEvents": [
+    {
+      "name": "onboarding_started",
+      "properties": {
+        "userId": "string | null",
+        "source": "direct | referral | campaign"
+      }
+    },
+    {
+      "name": "onboarding_step_completed",
+      "properties": {
+        "stepName": "string",
+        "durationMs": "number"
+      }
+    },
+    {
+      "name": "onboarding_completed",
+      "properties": {
+        "timeTakenMs": "number",
+        "choices": {
+          "role": "string",
+          "resumeSource": "string"
+        }
+      }
+    },
+    {
+      "name": "resume_uploaded",
+      "properties": {
+        "fileSize": "number",
+        "parseSuccess": "boolean"
+      }
+    },
+    {
+      "name": "oauth_attempt",
+      "properties": {
+        "provider": "google | linkedin",
+        "result": "success | failure"
+      }
+    },
+    {
+      "name": "preferences_completed",
+      "properties": {
+        "totalDurationMs": "number",
+        "goals": "string[]",
+        "resumeSource": "string"
+      }
+    },
+    {
+      "name": "profile_completed",
+      "properties": {
+        "hasLocation": "boolean",
+        "skillsCount": "number",
+        "isPublic": "boolean"
+      }
+    },
+    {
+      "name": "profile_skipped",
+      "properties": {
+        "timestamp": "string"
+      }
+    },
+    {
+      "name": "walkthrough_task_completed",
+      "properties": {
+        "taskId": "string",
+        "completionOrder": "number"
+      }
+    },
+    {
+      "name": "walkthrough_skipped",
+      "properties": {
+        "completedTasks": "number"
+      }
+    }
+  ],
+  "apiPayloads": {
+    "onboardingSubmit": {
+      "endpoint": "POST /api/onboarding/submit",
+      "request": {
+        "userId": "string | null",
+        "authProvider": "google | linkedin | email | null",
+        "goals": ["build_resume", "improve_resume"],
+        "desiredRole": "Product Designer",
+        "targetCompany": "string | null",
+        "experienceLevel": "student | 0-1 | 1-3 | 3-7 | 7+",
+        "resumeSource": "upload | linkedin | scratch",
+        "skills": ["Figma", "Photoshop"],
+        "locale": "en-IN"
+      },
+      "response": {
+        "onboardId": "uuid",
+        "nextActions": ["upload_resume", "run_analysis"],
+        "welcomeMessage": "string"
+      }
+    },
+    "preferencesSubmit": {
+      "endpoint": "POST /api/onboarding/preferences",
+      "request": {
+        "sessionId": "string",
+        "goals": ["improve_resume", "career_guidance"],
+        "desiredRole": "Frontend Engineer",
+        "targetCompany": "Google | null",
+        "experienceLevel": "1-3",
+        "resumeSource": "linkedin"
+      },
+      "response": {
+        "preferencesId": "uuid",
+        "nextStep": "profile | walkthrough"
+      }
+    },
+    "resumeUpload": {
+      "endpoint": "POST /api/resume/upload",
+      "request": {
+        "file": "FormData (multipart/form-data)",
+        "userId": "string"
+      },
+      "response": {
+        "fileId": "uuid",
+        "parseSuccess": "boolean",
+        "parsedData": "object | null",
+        "jobId": "string (for async parsing)"
+      }
+    },
+    "profileSubmit": {
+      "endpoint": "POST /api/onboarding/profile",
+      "request": {
+        "userId": "string",
+        "name": "string",
+        "email": "string",
+        "location": "string | null",
+        "skills": ["React", "Next.js"],
+        "isPublic": "boolean"
+      },
+      "response": {
+        "profileId": "uuid",
+        "nextStep": "walkthrough"
+      }
+    },
+    "onboardingComplete": {
+      "endpoint": "POST /api/onboarding/complete",
+      "request": {
+        "userId": "string",
+        "completedTasks": ["upload_resume", "run_analysis"],
+        "completionTime": "ISO string"
+      },
+      "response": {
+        "onboardingId": "uuid",
+        "welcomeMessage": "string"
+      }
+    }
+  },
+  "sampleUserSession": {
+    "sessionId": "abc-123",
+    "goals": ["improve_resume", "career_guidance"],
+    "desiredRole": "Frontend Engineer",
+    "targetCompany": "Google",
+    "experienceLevel": "1-3",
+    "resumeSource": "linkedin",
+    "skills": ["React", "Next.js", "TypeScript"]
+  }
+}
